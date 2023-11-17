@@ -2989,6 +2989,14 @@ MessageSizeCounts StructReader::totalSize() const {
   return result;
 }
 
+size_t StructReader::canonicalize(kj::ArrayPtr<word> backing) {
+  FlatMessageBuilder builder(backing);
+  _::PointerHelpers<AnyPointer>::getInternalBuilder(builder.initRoot<AnyPointer>()).setStruct(*this, true);
+  KJ_ASSERT(builder.isCanonical());
+  auto output = builder.getSegmentsForOutput()[0];
+  return output.size();
+}
+
 kj::Array<word> StructReader::canonicalize() {
   auto size = totalSize().wordCount + POINTER_SIZE_IN_WORDS;
   kj::Array<word> backing = kj::heapArray<word>(unbound(size / WORDS));

@@ -593,6 +593,7 @@ public:
   inline kj::ArrayPtr<const byte> getDataSectionAsBlob() const;
   inline _::ListReader getPointerSectionAsList() const;
 
+  size_t canonicalize(kj::ArrayPtr<word> backing);
   kj::Array<word> canonicalize();
 
   template <typename T>

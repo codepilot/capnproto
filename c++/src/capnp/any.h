@@ -473,6 +473,10 @@ public:
     return List<AnyPointer>::Reader(_reader.getPointerSectionAsList());
   }
 
+  size_t canonicalize(kj::ArrayPtr<word> backing) {
+      return _reader.canonicalize(backing);
+  }
+
   kj::Array<word> canonicalize() {
     return _reader.canonicalize();
   }
